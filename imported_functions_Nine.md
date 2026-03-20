@@ -1,6 +1,6 @@
-# ***Functions Imported by Chapter Eight.***
+# ***Functions Imported by Chapter Nine.***
 
-Chapter Eight  notebooks imports the helper functions:
+Chapter Nine  notebooks imports the helper functions:
 
 [accruded\_interest](https://patrickjhess.github.io/Imported-Functions/accrued_interest.html#accrued-interest-is-a-helper-function-that-calculates-accrued-interest).
 
