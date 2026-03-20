@@ -1,0 +1,1807 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Estimating The Nelson and Siegel Model &#8212; Basic Concepts of Fixed Income: Nelson-Siegel Model Of Term Structure</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b47fed4d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/open_new_tab.js?v=9fade34f"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Nelson_and_Siegel_Term_Structure_Estimates';</script>
+    <script src="_static/open_new_tab.js?v=9fade34f"></script>
+    <link rel="canonical" href="https://patrickjhess.github.io/Vol-3-Chap-9/Nelson_and_Siegel_Term_Structure_Estimates.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Summarizing The Nelson and Siegel Model Of the Term Structure" href="Chapter_Nine_Summary.html" />
+    <link rel="prev" title="Accessing Treasury Bill Prices From Treasury Direct Website" href="Accessing_FEDInvest_Data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Basic Concepts of Fixed Income: Nelson-Siegel Model Of Term Structure</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Financial Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Interacting%20With%20Jupyter%20Books.html">Working with Jupyter Books</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Concepts of Fixed Income: Chapter Nine</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Chapter_Nine_Highlights.html"><em><strong>The Nelson and Siegel Model Of the Term Structure</strong></em></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Nelson_Siegel.html">Why the Nelson and Siegel Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Accessing_FEDInvest_Data.html">Accessing Treasury Bill Prices From Treasury Direct Website</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Estimating The Nelson and Siegel Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Chapter_Nine_Summary.html"><em><strong>Summarizing The Nelson and Siegel Model Of the Term Structure</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="imported_functions_Nine.html"><em><strong>Functions Imported by Chapter Eight.</strong></em></a></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hub &amp; Other Chapters Of Basic Concepts Of Fixed Income</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Volume-Three-Hub/">Hub For Basic Concepts Of Fixed Income</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-1/">Chapter One: Basic Bond Concepts and the Term Structure of Interest Rates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-2-Chap-3/">Chapters Two and Three: Accrued Interest and Bond Pay Data</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-4/">Chapters Four: Bootstrapping The Term Structure With Coupon Bonds</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-5/">Chapter Five: Yield To Maturity</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-6/">Chapter Six: Yield To Maturity</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-7/">Chapter Seven: Measuring Interest Risk With Duration</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PatrickJHess/Vol-3-Chap-9/master?urlpath=tree/Nelson_and_Siegel_Term_Structure_Estimates.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PatrickJHess/Vol-3-Chap-9/blob/master/Nelson_and_Siegel_Term_Structure_Estimates.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/PatrickJHess/Vol-3-Chap-9/issues/new?title=Issue%20on%20page%20%2FNelson_and_Siegel_Term_Structure_Estimates.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Nelson_and_Siegel_Term_Structure_Estimates.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Estimating The Nelson and Siegel Model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">Import Modules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-functions-from-the-custom-module-including-the-new-function-fedinvest">Import functions from the custom module including the new function <font color="green">FEDInvest</font></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-treasury-bills-notes-bond-data-from-fedinvest-as-a-pandas-dataframe">Get treasury bills, notes, &amp; bond data from FEDInvest as a Pandas DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrapping-the-term-structure">Bootstrapping the term structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-term-structure-with-the-nelson-siegel-model">Estimating the term structure with the Nelson-Siegel model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-that-curve-fit-estimates">Define the function that <font color="green">curve_fit</font> estimates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-r-2">Calculate <span class="math notranslate nohighlight">\(R^{2}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-spot-rates-with-final-estimates-for-maturities-between-zero-and-thirty-years">Calculate spot rates with final estimates for maturities between zero and thirty years</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nelson-siegel-estimates-function">The <font color="green">nelson_siegel_estimates</font> function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-initial-guesses-and-estimate-the-term-structure">Set the initial guesses and estimate the term structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-the-estimates-and-graphing-the-results">Displaying the estimates and graphing the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-estimate-nelson-and-siegel-model-for-june-30-th-2023"><font color="green">Application: Estimate Nelson and Siegel model for June 30<span class="math notranslate nohighlight">\(^{th}\)</span> 2023</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-svensson-extension">The Svensson extension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-forward-rates">Calculating forward rates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-zero-prices-at-the-respective-dates">Calculate zero prices at the respective dates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-forward-rates">Calculate the forward rates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-forward-rate-for-the-second-and-fourth-quarters-of-2026-using-march-11-th-2026-estimates">Calculate the forward rate for the second and fourth quarters of 2026 using March 11<span class="math notranslate nohighlight">\(^{th}\)</span> 2026 estimates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-calculating-forward-rates-with-nelson-and-siegel-estimates"><font color="green">Application: Calculating Forward Rates with Nelson and Siegel Estimates</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-par-yields-with-nelson-siegel-model">Calculating Par Yields with Nelson-Siegel model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-par-yields-with-nelson-siegel-model-for-the-period-april-1-st-2026-march-31-st-2031">Calculating Par Yields with Nelson-Siegel model for the period April 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2026 - March 31<span class="math notranslate nohighlight">\(^{st}\)</span> 2031</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-forecast-the-cost-of-fixed-and-floating-rate-debt"><font color="green">Exercise: Forecast the cost of fixed and floating rate debt</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-a-deeper-dive-with-gemini"><font color="green">Take a deeper dive with Gemini</font></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="estimating-the-nelson-and-siegel-model">
+<h1>Estimating The Nelson and Siegel Model<a class="headerlink" href="#estimating-the-nelson-and-siegel-model" title="Link to this heading">#</a></h1>
+<p>The Nelson-Siegel model establishes a continuous relationship between spot interest rates and maturity dates. Although the model offers a good approximation, its design is ill-suited for traders. Smoothing the data is beneficial when the data quality is uncertain but this comes with a cost. Anomalous prices are absorbed by the estimated parameters and go unnoticed. A benefit for data errors, but a cost if executable and providing profitable trading opportunities.</p>
+<section id="import-modules">
+<h2>Import Modules<a class="headerlink" href="#import-modules" title="Link to this heading">#</a></h2>
+<p>The function <font color='green'>curve_fit</font>,imported from SciPy, is employed to determine the parameters for the nonlinear Nelson and Siegel model. This function finds the minimum least-squares solution by utilizing a derivative-based search. This process is similar to the search for the yield-to-maturity discussed in Chapter Six, but here the function depends on four variables instead of just one.</p>
+<p>As in earlier chapters of the volume, modules that are included in the standard Python library are imported. When necessary, other modules or libraries are installed before they are imported. IPython is not in the standard Python library, but is part of Jupyter and Colab notebooks.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>import sys
+import requests
+from types import ModuleType
+from IPython.display import Markdwon as md
+try:
+    import pandas as pd
+except:
+    !pip install pandas
+    import pandas as pd
+try:
+    import numpy as np
+except:
+    !pip install numpy
+    import numpy as
+try:
+    from scipy.optimize import curve_fit
+except:
+    !pip install scipy
+    import numpy as   
+    from scipy.optimize import curve_fit
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span><span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModuleType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Markdown</span> <span class="k">as</span> <span class="n">md</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>scipy
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="import-functions-from-the-custom-module-including-the-new-function-fedinvest">
+<h3>Import functions from the custom module including the new function <font color='green'>FEDInvest</font><a class="headerlink" href="#import-functions-from-the-custom-module-including-the-new-function-fedinvest" title="Link to this heading">#</a></h3>
+<p>The <font color='green'>module_basic_concepts_fixed_income</font> custom module contains functions utilized in the notebooks within the “Basic Concepts of Fixed Income” volume. This module is accessed from Dropbox using <font color='green'>requests</font>.
+You have the flexibility to choose the module name; in this instance,  <font color='green'>basic_concepts_fixed_income</font> is assigned to <font color='green'>module_name</font>. The module is instantiated with <font color='green'>ModuleType</font> using the chosen <font color='green'>module_name</font>. Once created, the module becomes accessible in the notebook’s memory, though it is not added to a drive.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exec</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="n">module</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">module</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span><span class="o">=</span><span class="n">module</span>
+</pre></div>
+</div>
+<p>Six functions are imported from the module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">basic_concepts_fixed_income</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">accrued_interest</span><span class="p">,</span>
+                                        <span class="n">create_payoff_matrix</span><span class="p">,</span>
+                                        <span class="n">FEDInvest</span><span class="p">,</span>
+                                        <span class="n">scheduled_pay_dates</span><span class="p">,</span>
+                                        <span class="n">adjust_bond_pay_dates</span><span class="p">,</span>
+                                         <span class="n">one_y_axis</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>accrued_interest</strong> (<a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-2-Chap-3">Chapter Two</a>): Returns accrued interest.</p>
+<ul>
+<li><p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/accrued_interest.html">View Details</a></p></li>
+</ul>
+</li>
+<li><p><strong>create_payoff_matrix</strong> (<a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-4">Chapter Four</a>): Returns the payoff matrix of DataFrame.</p>
+<ul>
+<li><p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/create_payoff_matrix.html">View Details</a></p></li>
+</ul>
+</li>
+<li><p><strong>FEDInvest</strong>  (<a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-9">This Chapter</a>) Returns bond price data from FEDInvest</p>
+<ul>
+<li><p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/FEDInvest.html">View Details</a></p></li>
+</ul>
+</li>
+<li><p><strong>scheduled_pay_dates</strong> (<a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-2-Chap-3">Chapter Three</a>): Returns scheduld payment dates</p>
+<ul>
+<li><p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/scheduled_pay_dates.html#">View Details</a></p></li>
+</ul>
+</li>
+<li><p><strong>adjusted_pay_dates</strong> (<a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-2-Chap-3">Chapter Three</a>): Returns scheduld payment dates</p>
+<ul>
+<li><p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/adjust_bond_pay_dates.html#">View Details</a></p></li>
+</ul>
+</li>
+<li><p><strong>one_y_axis</strong> (<a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-1/Calculating_And_Graphing_The_Term_Structure_Of_Interest_Rates.html#graphing-the-spot-and-forward-rates-for-september-15-2022">Chapter One</a>): Plots multiple series against a single x axis.</p>
+<ul>
+<li><p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/one_y_axis.html">View Details</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the URL of the Python module to be downloaded from Dropbox.</span>
+<span class="c1"># The &#39;dl=1&#39; parameter in the URL forces a direct download of the file content.</span>
+<span class="n">url</span><span class="o">=</span> <span class="s1">&#39;https://www.dropbox.com/scl/fi/4y5hjxlfphh1ngvbgo77q/</span><span class="se">\</span>
+<span class="s1">module_-basic_concepts_fixed_income.py?rlkey=6oxi7mgka42veaat79hcv8boz&amp;st=87sztshr&amp;dl=1&#39;</span>
+<span class="n">module_name</span><span class="o">=</span><span class="s1">&#39;basic_concepts_fixed_income&#39;</span>
+<span class="c1"># Send an HTTP GET request to the URL and store the server&#39;s response.</span>
+<span class="k">try</span><span class="p">:</span>
+  <span class="n">response</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+  <span class="c1"># Raise an exception for bad status codes (like 404 Not Found)</span>
+  <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+  <span class="n">module</span><span class="o">=</span> <span class="n">ModuleType</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+  <span class="c1">#Code contained in response.text executed</span>
+  <span class="n">exec</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+  <span class="c1"># Module added to sys</span>
+  <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span><span class="o">=</span><span class="n">module</span>
+<span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error: Could not fetch module from URL. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error: Failed to execute or import the module. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Now that &#39;basic_concepts_fixed_income&#39; exists in the notebook, import the specific functions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">basic_concepts_fixed_income</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">accrued_interest</span><span class="p">,</span>
+                                        <span class="n">create_payoff_matrix</span><span class="p">,</span>
+                                        <span class="n">FEDInvest</span><span class="p">,</span>
+                                        <span class="n">scheduled_pay_dates</span><span class="p">,</span>
+                                        <span class="n">adjust_bond_pay_dates</span><span class="p">,</span>
+                                         <span class="n">one_y_axis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="get-treasury-bills-notes-bond-data-from-fedinvest-as-a-pandas-dataframe">
+<h2>Get treasury bills, notes, &amp; bond data from FEDInvest as a Pandas DataFrame<a class="headerlink" href="#get-treasury-bills-notes-bond-data-from-fedinvest-as-a-pandas-dataframe" title="Link to this heading">#</a></h2>
+<p>The function <font color='green'>clean_fedinvest</font> is used to create the cleaned-up DataFrame of FEDInvest data. It requires two arguments:</p>
+<ol class="arabic simple">
+<li><p><strong>price_date</strong>: The date for accessing the price data.</p></li>
+<li><p><strong>years_offset</strong>: The longest maturity of the securities to be included in the DataFrame.</p></li>
+</ol>
+<p>The <strong>years_offset</strong> parameter is new and controls the longest maturity date used when bootstrapping the term structure. As bond maturity dates increase, the bond data becomes sparse. Each bond can add multiple columns (unique dates) to the payoff matrix, and that can result in the payoff matrix having a rank less than the number of unique dates. When this occurs, the data cannot be used to bootstrap the term structure. Based on recent data, a maturity limit of ten years is sufficient and the default and maximum value for <strong><code class="docutils literal notranslate"><span class="pre">years_offset</span></code></strong> is set to ten years.
+In addition to setting the date range with  <strong><code class="docutils literal notranslate"><span class="pre">years_offset</span></code></strong> , other clean-up tasks include:</p>
+<ol class="arabic simple">
+<li><p>Selecting types of securities to keep: <font color='green'>rows_to_keep</font>.</p></li>
+<li><p>Converting ‘MATURITY DATE’ to Datetimes: the  <font color='green'>set_index</font>.</p></li>
+<li><p>Make ‘MATURITY DATE’ the index and sort chronologically: s <font color='green'>to_date.time</font> and <font color='green'>sort_index</font>.</p></li>
+<li><p>Drop columns that are useful and rename others: <font color='green'>drop_columns, drop, change_column_names,rename</font></p></li>
+</ol>
+<p>The maturity dates of the bonds are selected with <font color='green'>min_maturity, max_maturty, rows_to_drop, and drop</font></p>
+<p>The Pandas <font color='green'>offsets.DateOffset</font> function adds datetimes to a Pandas timestamp.  Here we are adding time to the settlement date.  The minimum maturity date is one day more than the settlement day, and the maximum maturity is the minimum of years_offset or ten years.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_fedinvest</span><span class="p">(</span><span class="n">price_date</span><span class="p">,</span><span class="n">years_offset</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+
+  <span class="c1"># fetch the data with FEDInvest function</span>
+  <span class="n">df</span><span class="p">,</span><span class="n">date_stamp</span><span class="p">,</span><span class="n">settlement</span><span class="o">=</span><span class="n">FEDInvest</span><span class="p">(</span><span class="n">price_date</span><span class="p">)</span>
+
+  <span class="c1"># clean up FEDInvest reesults</span>
+  <span class="c1"># define the securities we want to keep</span>
+  <span class="n">rows_to_keep</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MARKET BASED BILL&#39;</span><span class="p">,</span><span class="s1">&#39;MARKET BASED NOTE&#39;</span><span class="p">,</span><span class="s1">&#39;MARKET BASED BOND&#39;</span><span class="p">]</span>
+
+  <span class="c1"># copy creates a new Dataframe unrelated to the original</span>
+  <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;SECURITY TYPE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">rows_to_keep</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+  <span class="c1"># make &#39;MATURITY DATE&#39; column index, convert to timestamp, and sort chronological</span>
+  <span class="c1"># set maturity as index</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;MATURITY DATE&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># make the index Pandas timestamp</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+  <span class="c1"># sort the DataFrame chronologically by maturity date</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># replace &#39;%&#39; of &#39;RATE&#39; column with nothing and cast results as floating point</span>
+  <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+  <span class="c1"># define the columnes to be dropped</span>
+  <span class="n">drop_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CUSIP&#39;</span><span class="p">,</span><span class="s1">&#39;CALL DATE&#39;</span><span class="p">]</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_columns</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># define the dictionary that maps new names (values) to old (keys)</span>
+  <span class="n">change_column_names</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;RATE&#39;</span><span class="p">:</span><span class="s1">&#39;Coupon&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;BUY&#39;</span><span class="p">:</span><span class="s1">&#39;Price Ask&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;SELL&#39;</span><span class="p">:</span><span class="s1">&#39;Price Bid&#39;</span><span class="p">}</span>
+  <span class="c1"># rename columns</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">change_column_names</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># set date range for data</span>
+  <span class="c1"># first date one more day than settlement</span>
+  <span class="n">min_maturity</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">settlement</span><span class="p">)</span><span class="o">+</span><span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+  <span class="c1"># maximum date is the minimum of ten years or years_offset</span>
+  <span class="n">max_maturity</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">settlement</span><span class="p">)</span><span class="o">+</span><span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+                   <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">settlement</span><span class="p">)</span><span class="o">+</span><span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">years</span><span class="o">=</span><span class="n">years_offset</span><span class="p">))</span>
+  <span class="c1"># identify the rows to drop based on maturity date of security</span>
+  <span class="n">rows_to_drop</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&lt;</span><span class="n">min_maturity</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&gt;</span><span class="n">max_maturity</span><span class="p">)]</span>
+  <span class="c1"># drop the rows</span>
+  <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">rows_to_drop</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">df</span><span class="p">,</span><span class="n">date_stamp</span><span class="p">,</span><span class="n">settlement</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">,</span><span class="n">date_stamp</span><span class="p">,</span><span class="n">settlement</span><span class="o">=</span><span class="n">clean_fedinvest</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Selected Date; </span><span class="si">{</span><span class="n">date_stamp</span><span class="si">}</span><span class="s1">; Settlement Date </span><span class="si">{</span><span class="n">settlement</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Selected Date; 2026-03-10; Settlement Date 2026-03-11&#39;
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SECURITY TYPE</th>
+      <th>Coupon</th>
+      <th>Price Ask</th>
+      <th>Price Bid</th>
+      <th>END OF DAY</th>
+    </tr>
+    <tr>
+      <th>MATURITY DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-03-12</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>0.000000</td>
+      <td>99.980111</td>
+      <td>99.990083</td>
+    </tr>
+    <tr>
+      <th>2026-03-15</th>
+      <td>MARKET BASED NOTE</td>
+      <td>4.625</td>
+      <td>0.000000</td>
+      <td>100.000000</td>
+      <td>100.000000</td>
+    </tr>
+    <tr>
+      <th>2026-03-17</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>99.929806</td>
+      <td>99.929611</td>
+      <td>99.939500</td>
+    </tr>
+    <tr>
+      <th>2026-03-19</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>99.909625</td>
+      <td>99.909500</td>
+      <td>99.919778</td>
+    </tr>
+    <tr>
+      <th>2026-03-24</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>99.859222</td>
+      <td>99.858833</td>
+      <td>99.868917</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2035-05-15</th>
+      <td>MARKET BASED NOTE</td>
+      <td>4.250</td>
+      <td>101.390625</td>
+      <td>101.375000</td>
+      <td>101.125000</td>
+    </tr>
+    <tr>
+      <th>2035-08-15</th>
+      <td>MARKET BASED NOTE</td>
+      <td>4.250</td>
+      <td>101.296875</td>
+      <td>101.281250</td>
+      <td>101.031250</td>
+    </tr>
+    <tr>
+      <th>2035-11-15</th>
+      <td>MARKET BASED NOTE</td>
+      <td>4.000</td>
+      <td>99.171875</td>
+      <td>99.156250</td>
+      <td>98.937500</td>
+    </tr>
+    <tr>
+      <th>2036-02-15</th>
+      <td>MARKET BASED NOTE</td>
+      <td>4.125</td>
+      <td>100.093750</td>
+      <td>100.093750</td>
+      <td>99.843750</td>
+    </tr>
+    <tr>
+      <th>2036-02-15</th>
+      <td>MARKET BASED BOND</td>
+      <td>4.500</td>
+      <td>103.718750</td>
+      <td>103.562500</td>
+      <td>103.312500</td>
+    </tr>
+  </tbody>
+</table>
+<p>302 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="bootstrapping-the-term-structure">
+<h2>Bootstrapping the term structure<a class="headerlink" href="#bootstrapping-the-term-structure" title="Link to this heading">#</a></h2>
+<p>The <font color='green'>estimate_zero_prices</font> function requires the following arguments: a Dataframe, the settlement date, the day count convention for accrued interest, and the bonds’ payment frequency. Initially, the function computes the bonds’ accrued interest and then their clean price. The clean price calculation depends on the presence of an end-of-day price: if available, the clean price is the maximum of the bid/ask average and the end-of-day price; otherwise, it defaults to the bid/ask average. The function’s output is the least-squares estimate of the term structure. These resulting spot rates, corresponding to discrete dates, serve as inputs for the Nelson-Siegel model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">estimate_zero_prices</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">settlement</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span><span class="n">day_count</span><span class="o">=</span><span class="s1">&#39;Actual/Actual&#39;</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="c1">#  import accrued_interest</span>
+<span class="c1">#  import create_payoff_matrix</span>
+
+<span class="c1"># apply the accrued_interest function to the DataFrame</span>
+  <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Accrued&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+      <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">accrued_interest</span><span class="p">(</span>
+          <span class="n">maturity</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="c1"># Assuming index is maturity</span>
+          <span class="n">coupon</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Coupon&#39;</span><span class="p">],</span>
+          <span class="n">settlement</span><span class="o">=</span><span class="n">settlement</span><span class="p">,</span>
+          <span class="n">freq</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+          <span class="n">day_type</span><span class="o">=</span><span class="n">day_count</span>
+      <span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+  <span class="p">)</span>
+
+  <span class="c1"># calculate transaction prices</span>
+  <span class="c1"># check to set the clearn price equal to the maximum end of day or bid ask aveage</span>
+  <span class="k">if</span> <span class="s1">&#39;END OF DAY&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Clean Price&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;END OF DAY&#39;</span><span class="p">],</span>
+                                <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price Ask&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price Bid&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="c1"># use bid/ask average</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Clean Price&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price Ask&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Price Bid&#39;</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+  <span class="c1"># the dirty or transaction price</span>
+  <span class="n">transaction_prices</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Clean Price&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Accrued&#39;</span><span class="p">]</span>
+
+  <span class="c1"># Create payoff matrix</span>
+  <span class="n">payoffs</span><span class="p">,</span><span class="n">column_dates</span><span class="o">=</span><span class="n">create_payoff_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">settlement</span><span class="o">=</span><span class="n">settlement</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+  <span class="c1"># Estimate the present value factors/zero prices with least squares</span>
+  <span class="n">zero_prices</span><span class="p">,</span><span class="n">ss2</span><span class="p">,</span><span class="n">rank</span><span class="p">,</span><span class="n">colInfo</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">payoffs</span><span class="p">,</span><span class="n">transaction_prices</span><span class="p">)</span>
+
+  <span class="c1"># Maturity of the bonds in years</span>
+  <span class="n">maturity_years</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">column_dates</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[D]&#39;</span><span class="p">)</span><span class="o">-</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="n">settlement</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">/</span><span class="mf">365.25</span>
+
+  <span class="c1"># Continuously compounded annualized spot rates</span>
+  <span class="n">spot_rates</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">zero_prices</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">maturity_years</span><span class="p">)</span>
+
+  <span class="c1"># Continuously compounded annualized forward rates</span>
+  <span class="n">forward_rates</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">zero_prices</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">maturity_years</span><span class="p">)</span>
+  <span class="n">forward_rates</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">forward_rates</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+  <span class="c1"># Create a DataFrame of least squares present value estimates and display results</span>
+  <span class="c1"># First a dictionary</span>
+  <span class="n">estimates_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Zero Prices&#39;</span><span class="p">:</span><span class="n">zero_prices</span><span class="p">,</span>
+                <span class="s1">&#39;Spot Rates&#39;</span><span class="p">:</span><span class="n">spot_rates</span><span class="p">,</span>
+                <span class="s1">&#39;Forward Rates&#39;</span><span class="p">:</span><span class="n">forward_rates</span><span class="p">}</span>
+
+  <span class="c1"># Then a DataFrame</span>
+  <span class="n">df_estimates</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">estimates_dict</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">column_dates</span><span class="p">)</span>
+
+
+    <span class="c1"># Create a DataFrame of summary statistics and display results</span>
+  <span class="c1"># First a dictionary</span>
+  <span class="n">summary_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Average Sum Squared Errors&#39;</span><span class="p">:</span><span class="n">ss2</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">),</span>
+              <span class="s1">&#39;Payoff Rank&#39;</span><span class="p">:</span><span class="n">rank</span><span class="p">,</span>
+              <span class="s1">&#39;Column Max Info&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">colInfo</span><span class="p">),</span>
+              <span class="s1">&#39;Column Min Info&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">colInfo</span><span class="p">)}</span>
+  <span class="c1"># Then a DataFrame</span>
+  <span class="n">df_summary</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">summary_dict</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Summary Statistics&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+  <span class="k">return</span> <span class="n">df_estimates</span><span class="p">,</span><span class="n">df_summary</span><span class="p">,</span><span class="n">maturity_years</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The bootstrapped term structure for the settlement date of March 11<span class="math notranslate nohighlight">\(^{th}\)</span> 2026 is shown below.</p>
+<ul class="simple">
+<li><p>The first maturity date is one day from the settlement date</p></li>
+<li><p>The last maturity date is approximately nine years and eleven months</p></li>
+<li><p>There are 194 unique payment dates-the number of zero prices, spot and forward rates.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_td_estimates</span><span class="p">,</span><span class="n">df_td_summary</span><span class="p">,</span><span class="n">td_maturity_years</span><span class="o">=</span><span class="n">estimate_zero_prices</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">settlement</span><span class="o">=</span><span class="n">settlement</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">md</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;### Bootstrapped Term Structure </span><span class="si">{</span><span class="n">settlement</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">string</span><span class="o">=</span><span class="s1">&#39;Bootstrapped Term Structure: &#39;</span><span class="o">+</span><span class="n">settlement</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_td_estimates</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_td_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/tmp/ipykernel_30386/870191713.py&quot;</span><span class="gt">, line </span><span class="mi">2</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">md</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;### Bootstrapped Term Structure </span><span class="si">{</span><span class="n">settlement</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+                                                                       <span class="o">^</span>
+<span class="ne">SyntaxError</span>: f-string: unmatched &#39;(&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-the-term-structure-with-the-nelson-siegel-model">
+<h2>Estimating the term structure with the Nelson-Siegel model<a class="headerlink" href="#estimating-the-term-structure-with-the-nelson-siegel-model" title="Link to this heading">#</a></h2>
+<p>In estimating the Nelson-Siegel model three functions are defined.</p>
+<ol class="arabic simple">
+<li><p><font color='green'>calc_spot_rates</font> defines the function that is being estimated by the <font color='green'>curve_fit</font> method.  The <font color='green'>curve_fit</font> iterates by comparing the calculated spot rates to the actual values and calls the function at each iteration.</p></li>
+<li><p><font color='green'>calc_rsquared</font> calculates the R<span class="math notranslate nohighlight">\(^{2}\)</span> with the final estimates of <font color='green'>curve_fit</font></p></li>
+<li><p><font color='green'>estimated_spot_rates</font> uses the final estimates to calculate the spot rates from approximately zero (0.00001 years) to thirty years at a daily frequency (0.00274 years).  These values are plotted.</p></li>
+</ol>
+<section id="define-the-function-that-curve-fit-estimates">
+<h3>Define the function that <font color='green'>curve_fit</font> estimates<a class="headerlink" href="#define-the-function-that-curve-fit-estimates" title="Link to this heading">#</a></h3>
+<p>The <font color='green'>calc_spot_rates</font> function defines the Nelson-Siegel model. It is used as input for SciPy’s <font color='green'>curve_fit</font> function.</p>
+<p>The function takes the bonds’ maturity dates as variables and calculates spot rates with the estimated parameters (<span class="math notranslate nohighlight">\(\beta_0,\ \beta_1,\ \beta_1,\  and\  \tau\)</span> represented as b_0, b_1, b_2, and tau). The <font color='green'>curve_fit</font> function then updates the parameter estimates based on returned estimated spot rates, starting from initial assigned guess values.  The process continues until the sum of least-squared errors fails to decline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calc_spot_rates</span><span class="p">(</span><span class="n">maturity</span><span class="p">,</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">):</span>
+
+  <span class="c1"># caclulates spot rates wtih estimated parameters</span>
+  <span class="n">values</span> <span class="o">=</span> <span class="n">b_0</span><span class="o">+</span><span class="n">b_1</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)))</span>\
+  <span class="o">+</span><span class="n">b_2</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-r-2">
+<h3>Calculate <span class="math notranslate nohighlight">\(R^{2}\)</span><a class="headerlink" href="#calculate-r-2" title="Link to this heading">#</a></h3>
+<p>The <font color='green'>cal_rsquared</font> function is used to compare forecasted spot rates—derived from the final <font color='green'>curve_fit</font> estimates against the actual spot rates. The r-squared value is determined by calculating the ratio of the sum of the squared forecasted and actual rates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calc_rsquared</span><span class="p">(</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">actual_rates</span><span class="p">,</span><span class="n">maturity</span><span class="p">):</span>
+
+  <span class="c1">#Errors are the difference between actual rates and  projected rates from estimates</span>
+  <span class="n">errors</span><span class="o">=</span><span class="n">actual_rates</span><span class="o">-</span><span class="p">(</span><span class="n">b_0</span><span class="o">+</span><span class="n">b_1</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)))</span>\
+  <span class="o">+</span><span class="n">b_2</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">maturity</span><span class="o">/</span><span class="n">tau</span><span class="p">)))</span>
+
+  <span class="c1">#One minus proportion of squared errors to squared values of actual</span>
+  <span class="n">r_squared</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">actual_rates</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">r_squared</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-spot-rates-with-final-estimates-for-maturities-between-zero-and-thirty-years">
+<h3>Calculate spot rates with final estimates for maturities between zero and thirty years<a class="headerlink" href="#calculate-spot-rates-with-final-estimates-for-maturities-between-zero-and-thirty-years" title="Link to this heading">#</a></h3>
+<p>The maturity ranges from approximately zero to thirty years and increases by approximately one day for each observation. Total number of observations is 10,949.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">estimated_spot_rates</span><span class="p">(</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">):</span>
+
+  <span class="c1"># t is the maturity years</span>
+  <span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.00001</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mf">0.00274</span><span class="p">)</span>
+  <span class="n">spot_rates</span><span class="o">=</span><span class="n">b_0</span><span class="o">+</span><span class="n">b_1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span>\
+  <span class="o">+</span><span class="n">b_2</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">spot_rates</span><span class="p">,</span><span class="n">t</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-nelson-siegel-estimates-function">
+<h2>The <font color='green'>nelson_siegel_estimates</font> function<a class="headerlink" href="#the-nelson-siegel-estimates-function" title="Link to this heading">#</a></h2>
+<p>The function requires the discretely estimated spot rates, matching maturity dates, and the settlement date.  The function calls the SciPy function <font color='green'>curve_fit</font> that returns the estimated values and the covariance matrix of the estimated values. That function requires the function that is being estimated (<font color='green'>calc_spot_rates</font>), maturity dates, the actual spot rates, and initial guesses for the parameters.</p>
+<section id="set-the-initial-guesses-and-estimate-the-term-structure">
+<h3>Set the initial guesses and estimate the term structure<a class="headerlink" href="#set-the-initial-guesses-and-estimate-the-term-structure" title="Link to this heading">#</a></h3>
+<p>The nonlinear search procedure requires initial values.  The optimization starts with the initial values or guesses.  Good guesses start the procedure off in the correct region-better results follow from better guesses. Here are the initial values or guesses that are provided.</p>
+<ul class="simple">
+<li><p><strong>b_0</strong>:  corresponds to the parameter <span class="math notranslate nohighlight">\(\beta_0\)</span> the long spot rate and guess is the longest dated estimated spot rate (<font color='green'>spot_rates[-1]</font>).</p></li>
+<li><p><strong>b_1</strong>:  <span class="math notranslate nohighlight">\(\beta_0+\beta_1\)</span> equals the short rate, so <font color='green'>spot_rates[0]</font> (the shortest spot rate)  minus (<font color='green'>spot_rates[-1]</font> (the longest spot rate) is the guess for b_1.</p></li>
+<li><p><strong>b_2</strong>: corresponds to <span class="math notranslate nohighlight">\(\beta_2\)</span>, the curvature of the term structure and the guess is zero.</p></li>
+<li><p><strong>tau</strong>: corresponds to <span class="math notranslate nohighlight">\(\tau\)</span> that scales the term effect and the guess is one.</p></li>
+</ul>
+<p>The <font color='green'>nelson_siegel_estimates</font> function returns the estimates and their standard errors including the standard error of the short rate (<span class="math notranslate nohighlight">\(\beta_0 - \beta_1\)</span>)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">nelson_siegel_estimates</span><span class="p">(</span><span class="n">spot_rates</span><span class="p">,</span><span class="n">maturity_years</span><span class="p">,</span><span class="n">settlement</span><span class="p">):</span>
+  <span class="c1"># define the guesses</span>
+  <span class="n">guesses</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">spot_rates</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                  <span class="n">spot_rates</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">spot_rates</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                  <span class="mi">0</span><span class="p">,</span>
+                  <span class="mf">1.0</span><span class="p">])</span>
+
+  <span class="c1"># call scipy curve_fit, pass the model, data, and guesses</span>
+  <span class="n">estimates</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">curve_fit</span><span class="p">(</span><span class="n">calc_spot_rates</span><span class="p">,</span>
+                                  <span class="n">maturity_years</span><span class="p">,</span><span class="n">spot_rates</span><span class="p">,</span><span class="n">guesses</span><span class="p">)</span>
+
+  <span class="n">std_error_coeff</span><span class="o">=</span><span class="n">cov</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">**</span><span class="mf">0.5</span>
+  <span class="n">std_error_short</span><span class="o">=</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">cov</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">cov</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mf">0.5</span>
+
+  <span class="c1"># display results</span>
+
+  <span class="k">return</span> <span class="n">estimates</span><span class="p">,</span><span class="n">std_error_coeff</span><span class="p">,</span><span class="n">std_error_short</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="displaying-the-estimates-and-graphing-the-results">
+<h2>Displaying the estimates and graphing the results<a class="headerlink" href="#displaying-the-estimates-and-graphing-the-results" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">),</span><span class="n">std_error_coeff</span><span class="p">,</span><span class="n">std_error_short</span><span class="o">=</span><span class="n">nelson_siegel_estimates</span><span class="p">(</span><span class="n">df_td_estimates</span><span class="p">[</span><span class="s1">&#39;Spot Rates&#39;</span><span class="p">],</span><span class="n">td_maturity_years</span><span class="p">,</span><span class="n">settlement</span><span class="p">)</span>
+<span class="n">r_squared</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">calc_rsquared</span><span class="p">(</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">df_td_estimates</span><span class="p">[</span><span class="s1">&#39;Spot Rates&#39;</span><span class="p">],</span><span class="n">td_maturity_years</span><span class="p">),</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">md</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;## Nelson-Siegel Estimates: &#39;</span><span class="o">+</span><span class="n">settlement</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> &#39;</span><span class="p">)))</span>
+<span class="n">x</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Long Rate (Level)&#39;</span><span class="p">:(</span><span class="n">b_0</span><span class="p">,</span><span class="n">std_error_coeff</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="s1">&#39;Slope&#39;</span><span class="p">:(</span><span class="n">b_1</span><span class="p">,</span><span class="n">std_error_coeff</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+              <span class="s1">&#39;Shape&#39;</span><span class="p">:(</span><span class="n">b_2</span><span class="p">,</span><span class="n">std_error_coeff</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span><span class="s1">&#39;Maturity Scaling&#39;</span><span class="p">:(</span><span class="n">tau</span><span class="p">,</span><span class="n">std_error_coeff</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+              <span class="s1">&#39;Short Rate&#39;</span><span class="p">:(</span><span class="n">b_0</span><span class="o">-</span><span class="n">b_1</span><span class="p">,</span><span class="n">std_error_short</span><span class="p">)},</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Estimate&#39;</span><span class="p">,</span><span class="s1">&#39;Std. Error&#39;</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">md</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;### R-Squared: </span><span class="si">{</span><span class="n">r_squared</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1">#Data to be plotted</span>
+<span class="n">spot_time</span><span class="o">=</span><span class="n">estimated_spot_rates</span><span class="p">(</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">)</span>
+<span class="n">plot_data</span><span class="o">=</span><span class="p">[</span><span class="n">spot_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">]</span>
+<span class="c1">#X axis time in years</span>
+<span class="n">xaxis</span><span class="o">=</span><span class="n">spot_time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Spot Rates&#39;</span><span class="p">]</span>
+<span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Annual Percentage Rate&#39;</span>
+<span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Maturity In Years&#39;</span>
+<span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+<span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span>
+<span class="n">y_lower</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">plot_data</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">y_upper</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">plot_data</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="n">y_lower</span><span class="p">,</span><span class="n">y_upper</span><span class="p">]</span>
+<span class="n">title</span><span class="o">=</span><span class="s1">&#39;Estimate Of Term Structure:&#39;</span><span class="o">+</span><span class="n">settlement</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> &#39;</span><span class="p">)</span>
+<span class="n">one_y_axis</span><span class="p">(</span><span class="n">xaxis</span><span class="p">,</span><span class="n">plot_data</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">series</span><span class="p">,</span><span class="n">xlabel</span><span class="p">,</span><span class="n">ylabel</span><span class="p">,</span><span class="n">markers</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">ylim</span><span class="p">,</span>
+           <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h2 class="rubric" id="nelson-siegel-estimates-2026-03-11">Nelson-Siegel Estimates: 2026-03-11</h2>
+<h3 class="rubric" id="r-squared-0-99944">R-Squared: 0.99944</h3>
+<div class="output text_html">
+  <div id="df-e21c69a0-d101-4e01-883f-c551dedddec6" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Long Rate (Level)</th>
+      <th>Slope</th>
+      <th>Shape</th>
+      <th>Maturity Scaling</th>
+      <th>Short Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Estimate</th>
+      <td>0.039007</td>
+      <td>0.000016</td>
+      <td>-0.013511</td>
+      <td>0.701818</td>
+      <td>0.038991</td>
+    </tr>
+    <tr>
+      <th>Std. Error</th>
+      <td>0.000164</td>
+      <td>0.000003</td>
+      <td>0.000835</td>
+      <td>0.031228</td>
+      <td>0.000163</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-e21c69a0-d101-4e01-883f-c551dedddec6')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-e21c69a0-d101-4e01-883f-c551dedddec6 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-e21c69a0-d101-4e01-883f-c551dedddec6');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_488e6f1d-748d-411f-ab40-130396a534d1">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('x')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_488e6f1d-748d-411f-ab40-130396a534d1 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('x');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>❓ Do you want to save the file? (y/n) (press enter for n): n
+</pre></div>
+</div>
+<p>###<em><strong>❌ File Not Saved</strong></em>.</p>
+<img alt="_images/1336d9bf5bec87b738d6d823d7c38da9e2dd488876d8a42a42bddfdbf4dbb036.png" src="_images/1336d9bf5bec87b738d6d823d7c38da9e2dd488876d8a42a42bddfdbf4dbb036.png" />
+</div>
+</div>
+</section>
+<section id="application-estimate-nelson-and-siegel-model-for-june-30-th-2023">
+<h2><font color='green'>Application: Estimate Nelson and Siegel model for June 30<span class="math notranslate nohighlight">\(^{th}\)</span> 2023</font><a class="headerlink" href="#application-estimate-nelson-and-siegel-model-for-june-30-th-2023" title="Link to this heading">#</a></h2>
+<p>see <a class="reference external" href="https://patrickjhess.github.io/Hints-Results/Chapter_Nine_Hints.html#chapter-nine-hints">Chapter Nine Hints: Estimate Nelson and Siegel model for June 30 2023</a>, and check the <a class="reference external" href="https://patrickjhess.github.io/Hints-Results/Chapter_Nine_Results.html#chapter-nine-results">expected results here</a>.</p>
+</section>
+<section id="the-svensson-extension">
+<h2>The Svensson extension<a class="headerlink" href="#the-svensson-extension" title="Link to this heading">#</a></h2>
+<p>Two extra parmeters (<span class="math notranslate nohighlight">\(\beta_3\text{ and }\lambda\)</span>) are suggested to allow for additional curvature. The extended model is:</p>
+<p><span class="math notranslate nohighlight">\(\large r(t)=\beta_0+\beta_1\times\frac{1-e^{-t/\tau}}{t/\tau}+\beta_2\times(\frac{1-e^{-t/\tau}}{t/\tau}-e^{-t/\tau})+\beta_3\times(\frac{1-e^{-t/\lambda}}{t/\lambda}-e^{-t/\lambda})\)</span></p>
+<p>The extension is subject to a serious risk of overparameterization-the inability to find a solution or solution that changes dramatically with changes in the initial values or guesses.  Indeed, that is the case when the extended model is estimated with March 11<span class="math notranslate nohighlight">\(^{th}\)</span> 2026 data. The Nelson-Siegel explains almost all the variation in the spot rates, adding two parameters adds complexity with little left to be explained.</p>
+</section>
+<section id="calculating-forward-rates">
+<h2>Calculating forward rates<a class="headerlink" href="#calculating-forward-rates" title="Link to this heading">#</a></h2>
+<p>The Nelson and Siegel model is parsimonious and enables the calculation of forward interest rates for any future date. As we have previously seen, forward rates are key to pricing financial instruments (including derivatives and fixed-income securities) and understanding market expectations regarding essential economic and financial metrics.</p>
+<section id="calculate-zero-prices-at-the-respective-dates">
+<h3>Calculate zero prices at the respective dates<a class="headerlink" href="#calculate-zero-prices-at-the-respective-dates" title="Link to this heading">#</a></h3>
+<p>To calculate forward rates as the ratios of zero prices, the initial step involves estimating zero prices using the Nelson-Siegel model. The <font color='green'> calc_zero</font> function is utilized for this calculation, requiring the maturity date(s) and the estimated parameters of the Nelson-Siegel model as its inputs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calc_zero</span><span class="p">(</span><span class="n">t</span><span class="p">,</span>               <span class="c1">#maturity dates</span>
+              <span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">):</span><span class="c1">#estimted parameters of model</span>
+
+  <span class="c1"># calculate the zero prices from forecasted spot rates</span>
+  <span class="c1"># forecasted spot rates</span>
+
+  <span class="c1"># make t numpy array so calculations of rates are vectorized</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+  <span class="c1"># can&#39;t divided by zero &amp; negative values set at 0.00001</span>
+  <span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+
+  <span class="n">rate</span><span class="o">=</span><span class="n">b_0</span><span class="o">+</span><span class="n">b_1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span>\
+  <span class="o">+</span><span class="n">b_2</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">)</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">/</span><span class="n">tau</span><span class="p">))</span>
+
+  <span class="c1"># zero price</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">rate</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculate-the-forward-rates">
+<h3>Calculate the forward rates<a class="headerlink" href="#calculate-the-forward-rates" title="Link to this heading">#</a></h3>
+<p>The <font color='green'>calc_forward_rates</font> function requires the settlement dates, forward starting and ending dates, along with the estimated parameters for the Nelson-Siegel model. It first converts all input dates to Pandas timestamps, and the start and end dates are then converted to Pandas series representing years. A validation step uses the Pandas <font color='green'>any</font> method to confirm that all ending dates are greater than their corresponding starting dates. The calculated forward rates are returned as NumPy arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calc_forward_rates</span><span class="p">(</span><span class="n">settlement</span><span class="p">,</span><span class="n">start_dates</span><span class="p">,</span><span class="n">end_dates</span><span class="p">,</span>  <span class="c1">#required dates</span>
+                       <span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">):</span>                  <span class="c1">#estimated parameters</span>
+
+  <span class="n">pd_settlement</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">settlement</span><span class="p">)</span>
+
+  <span class="c1"># convert start and end dates to years</span>
+  <span class="n">start_t</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">start_dates</span><span class="p">)</span><span class="o">-</span><span class="n">pd_settlement</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">)</span><span class="o">/</span><span class="mf">365.25</span>
+  <span class="n">end_t</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">end_dates</span><span class="p">)</span><span class="o">-</span><span class="n">pd_settlement</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="p">)</span><span class="o">/</span><span class="mf">365.25</span>
+
+  <span class="c1"># validate dates</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">start_t</span><span class="o">-</span><span class="n">end_t</span><span class="p">)</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;start_dates must be &lt; matching end_dates&#39;</span>
+
+  <span class="c1"># calculate the zero prices from forecasted spot rates</span>
+  <span class="c1"># calculation is vectorized</span>
+  <span class="n">start_zero</span><span class="o">=</span><span class="n">calc_zero</span><span class="p">(</span><span class="n">start_t</span><span class="p">,</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">)</span>
+  <span class="n">end_zero</span><span class="o">=</span><span class="n">calc_zero</span><span class="p">(</span><span class="n">end_t</span><span class="p">,</span><span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">)</span>
+
+  <span class="c1"># annualized forward rate (end_t and start_t are in years)</span>
+  <span class="n">forward_rates</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">start_zero</span><span class="o">/</span><span class="n">end_zero</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">end_t</span><span class="o">-</span><span class="n">start_t</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">forward_rates</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="calculate-the-forward-rate-for-the-second-and-fourth-quarters-of-2026-using-march-11-th-2026-estimates">
+<h2>Calculate the forward rate for the second and fourth quarters of 2026 using March 11<span class="math notranslate nohighlight">\(^{th}\)</span> 2026 estimates<a class="headerlink" href="#calculate-the-forward-rate-for-the-second-and-fourth-quarters-of-2026-using-march-11-th-2026-estimates" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set start and end dates as tuples to avoid values being changed</span>
+<span class="n">start_dates</span><span class="o">=</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">end_dates</span><span class="o">=</span><span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span><span class="n">date</span><span class="p">(</span><span class="mi">2026</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">31</span><span class="p">))</span>
+
+<span class="c1"># calculate forward rates</span>
+<span class="n">forward_rates</span><span class="o">=</span><span class="n">calc_forward_rates</span><span class="p">(</span><span class="n">settlement</span><span class="p">,</span><span class="n">start_dates</span><span class="p">,</span><span class="n">end_dates</span><span class="p">,</span>
+                                 <span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">)</span>
+
+<span class="c1"># create a DataFrame</span>
+<span class="n">df_forward</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;End Date&#39;</span><span class="p">:</span><span class="n">end_dates</span><span class="p">,</span><span class="s1">&#39;Forward Rate&#39;</span><span class="p">:</span><span class="n">forward_rates</span><span class="o">*</span><span class="mi">100</span><span class="p">},</span>
+                        <span class="n">index</span><span class="o">=</span><span class="n">start_dates</span><span class="p">)</span>
+
+<span class="c1"># rename the index</span>
+<span class="n">df_forward</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Start Date&#39;</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_forward</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-4bc2dc2d-547b-4f37-9f0a-f575af230a3d" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>End Date</th>
+      <th>Forward Rate</th>
+    </tr>
+    <tr>
+      <th>Start Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-04-01</th>
+      <td>2026-06-30</td>
+      <td>3.642442</td>
+    </tr>
+    <tr>
+      <th>2026-10-01</th>
+      <td>2026-12-31</td>
+      <td>3.407233</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4bc2dc2d-547b-4f37-9f0a-f575af230a3d')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-4bc2dc2d-547b-4f37-9f0a-f575af230a3d button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4bc2dc2d-547b-4f37-9f0a-f575af230a3d');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+  <div id="id_1c7290a7-d621-46a3-8b9b-52b0294e2281">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('df_forward')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_1c7290a7-d621-46a3-8b9b-52b0294e2281 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('df_forward');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+</section>
+<section id="application-calculating-forward-rates-with-nelson-and-siegel-estimates">
+<h2><font color='green'>Application: Calculating Forward Rates with Nelson and Siegel Estimates</font><a class="headerlink" href="#application-calculating-forward-rates-with-nelson-and-siegel-estimates" title="Link to this heading">#</a></h2>
+<p>Using FEDInvest estimates for June 30<span class="math notranslate nohighlight">\(^{th}\)</span> 2023.</p>
+<ol class="arabic simple">
+<li><p>Calculate the forward rate for the fourth quarter of 2023.</p></li>
+<li><p>Calculate the forward rate for August 2023</p></li>
+<li><p>Calculate the forward rate for the year 2024</p></li>
+</ol>
+<p>see <a class="reference external" href="https://patrickjhess.github.io/Hints-Results/Chapter_Nine_Hints.html#chapter-nine-hints">Chapter Eight Hints: Calculating Forward Rates with Nelson and Siegel Estimates</a>, and check the <a class="reference external" href="https://patrickjhess.github.io/Hints-Results/Chapter_Nine_Results.html#chapter-nine-results">expected results here</a></p>
+</section>
+<section id="calculating-par-yields-with-nelson-siegel-model">
+<h2>Calculating Par Yields with Nelson-Siegel model<a class="headerlink" href="#calculating-par-yields-with-nelson-siegel-model" title="Link to this heading">#</a></h2>
+<p>In addition to forward rates, calculating par yields for arbitrary dates is a natural use case of Nelson and Siegel.</p>
+<p>Recall from Chapter Five that par yields are derived from the formula:</p>
+<blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{Principal} = \sum _{t=1}^{T}\text{PV}(t)\times \text{Par Yield}\times\text{Principal}+ \text{PV}(T)\times\text{Principal}\)</span></p>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{Par Yield}=\large\frac{1-PV(T)}{\sum _{t=1}^{T}PV(t)}\)</span></p>
+</div></blockquote>
+</div></blockquote>
+<br>
+<p>The calculation assumes that the settlement date is the current date.  We can generalize for any settlement by adjusting the par value by the present value factor on the settlement date.</p>
+<br>
+<blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{PV(settlement)}\times\text{Principal} = \sum _{t=1}^{T}\text{PV}(t)\times \text{Par Yield}\times\text{Principal}+ \text{PV}(T)\times\text{Principal}\)</span></p>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><blockquote>
+<div><p><span class="math notranslate nohighlight">\(\text{Par Yield}=\large\frac{\text{PV(settlement) - PV(T)}}{\sum _{t=1}^{T}\text{PV(t)}}\)</span></p>
+</div></blockquote>
+</div></blockquote>
+<br>
+<p>The <font color='green'>calc_par_yield</font>  function adjusts for the time difference between the current date and the assumed settlement date. The actual payment dates are calculated with the functions <font color='green'>scheduled_pay_dates</font> and <font color='green'>adjust_bond_pay_dates</font> that are imported from the custom module.</p>
+<p>The par yield is annualized by frequency of payments, although the actual payment intervals will vary (for quarterly frequency between ninety and ninety-two days). A more detailed solution is provided with our discussion of interest rate swaps.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">basic_concepts_fixed_income</span><span class="w"> </span><span class="kn">import</span> <span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calc_par_yield</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+
+  <span class="c1"># make all dates pandas timestamps for vectorized calculations</span>
+  <span class="n">settlement_ts</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">settlement</span><span class="p">)</span>
+  <span class="n">start_date_ts</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+  <span class="n">end_date_ts</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+
+  <span class="c1"># validate dates</span>
+  <span class="k">if</span> <span class="n">start_date_ts</span><span class="o">&gt;=</span><span class="n">end_date_ts</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s1">&#39;start_date must be &lt; end date&#39;</span>
+
+  <span class="c1"># get the scheduled and actual payment dates</span>
+  <span class="n">scheduled_dates</span><span class="o">=</span><span class="n">scheduled_pay_dates</span><span class="p">(</span><span class="n">end_date_ts</span><span class="p">,</span><span class="n">start_date_ts</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
+  <span class="n">actual_dates</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">adjust_bond_pay_dates</span><span class="p">(</span><span class="n">scheduled</span><span class="p">)</span>
+   <span class="k">for</span> <span class="n">scheduled</span> <span class="ow">in</span> <span class="n">scheduled_dates</span><span class="p">])</span>
+
+  <span class="c1"># convert dates to years</span>
+  <span class="n">t_start_date</span><span class="o">=</span><span class="p">(</span><span class="n">start_date_ts</span><span class="o">-</span><span class="n">settlement_ts</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="o">/</span><span class="mf">365.25</span>
+  <span class="n">t_pay_dates</span><span class="o">=</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">actual_dates</span><span class="p">)</span><span class="o">-</span><span class="n">settlement_ts</span><span class="p">)</span><span class="o">.</span><span class="n">days</span><span class="o">/</span><span class="mf">365.25</span>
+
+  <span class="c1"># vectorize zero price calculations</span>
+  <span class="n">pay_dates_zero</span><span class="o">=</span><span class="n">calc_zero</span><span class="p">(</span><span class="n">t_pay_dates</span><span class="p">,</span>
+                           <span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">)</span>
+
+  <span class="c1"># single calculation for start_date</span>
+  <span class="n">start_date_zero</span><span class="o">=</span><span class="n">calc_zero</span><span class="p">(</span><span class="n">t_start_date</span><span class="p">,</span>
+                            <span class="n">b_0</span><span class="p">,</span><span class="n">b_1</span><span class="p">,</span><span class="n">b_2</span><span class="p">,</span><span class="n">tau</span><span class="p">)</span>
+
+  <span class="c1"># par yield calculations</span>
+  <span class="n">par_yield</span><span class="o">=</span><span class="p">(</span><span class="n">start_date_zero</span><span class="o">-</span><span class="n">pay_dates_zero</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pay_dates_zero</span><span class="p">)</span><span class="o">*</span><span class="n">freq</span>
+
+  <span class="k">return</span> <span class="n">par_yield</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculating-par-yields-with-nelson-siegel-model-for-the-period-april-1-st-2026-march-31-st-2031">
+<h2>Calculating Par Yields with Nelson-Siegel model for the period April 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2026 - March 31<span class="math notranslate nohighlight">\(^{st}\)</span> 2031<a class="headerlink" href="#calculating-par-yields-with-nelson-siegel-model-for-the-period-april-1-st-2026-march-31-st-2031" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the start and end dates</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="s1">&#39;2026-04-01&#39;</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="s1">&#39;2031-03-31&#39;</span>
+
+<span class="c1"># display the results</span>
+<span class="n">par_yield</span><span class="o">=</span><span class="n">calc_par_yield</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span><span class="n">end_date</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">md</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#### Starting Date: </span><span class="si">{</span><span class="n">start_date</span><span class="si">}</span><span class="s1">..Ending Date: </span><span class="si">{</span><span class="n">end_date</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">md</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;#### Par Yield: </span><span class="si">{</span><span class="n">par_yield</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h4 class="rubric" id="starting-date-2026-04-01-ending-date-2031-03-31">Starting Date: 2026-04-01..Ending Date: 2031-03-31</h4>
+<h4 class="rubric" id="par-yield-3-7197">Par Yield: 3.7197%</h4>
+</div>
+</div>
+</section>
+<section id="exercise-forecast-the-cost-of-fixed-and-floating-rate-debt">
+<h2><font color='green'>Exercise: Forecast the cost of fixed and floating rate debt</font><a class="headerlink" href="#exercise-forecast-the-cost-of-fixed-and-floating-rate-debt" title="Link to this heading">#</a></h2>
+<p>Assume that your annualized borrowing rate is 100 basis points above the default-free rate.</p>
+<ol class="arabic simple">
+<li><p>What interest rates would you expect to be able to lock in on June 30<span class="math notranslate nohighlight">\(^{th}\)</span> 2023 for 2024 if the rate resets at the beginning of every quarter.</p></li>
+<li><p>What interest rate would you expect to be able to lock in on March 16<span class="math notranslate nohighlight">\(^{th}\)</span> 2026 for a loan that begins on June 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2026 and ends on May 31<span class="math notranslate nohighlight">\(^{st}\)</span> 2036.</p></li>
+</ol>
+<br>
+<p>see <a class="reference external" href="https://patrickjhess.github.io/Hints-Results/Chapter_Nine_Hints.html#chapter-nine-hints">Chapter Nine Hints: Forecast the cost of fixed and floating rate debt</a>, and check the <a class="reference external" href="https://patrickjhess.github.io/Hints-Results/Chapter_Nine_Results.html#chapter-nine-results">expected results here</a>.</p>
+</section>
+<section id="take-a-deeper-dive-with-gemini">
+<h2><font color='green'>Take a deeper dive with Gemini</font><a class="headerlink" href="#take-a-deeper-dive-with-gemini" title="Link to this heading">#</a></h2>
+<p>Some suggestions to get you started.</p>
+<ol class="arabic simple">
+<li><p>How can I use the Nelson-Siegel model to evaluate an interest rate swap?</p></li>
+<li><p>Is the Nelson-Siegel model better than a linear approximation?</p></li>
+<li><p>Is the Nelson-Siegel mdoel better than a cubic spline approximation?</p></li>
+</ol>
+<p><a class="reference external" href="https://gemini.google.com">Here is the link where you can copy and paste the questions</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "patrickjhess/Vol-3-Chap-9",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Accessing_FEDInvest_Data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Accessing Treasury Bill Prices From Treasury Direct Website</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Chapter_Nine_Summary.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><em><strong>Summarizing The Nelson and Siegel Model Of the Term Structure</strong></em></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules">Import Modules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-functions-from-the-custom-module-including-the-new-function-fedinvest">Import functions from the custom module including the new function <font color="green">FEDInvest</font></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-treasury-bills-notes-bond-data-from-fedinvest-as-a-pandas-dataframe">Get treasury bills, notes, &amp; bond data from FEDInvest as a Pandas DataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrapping-the-term-structure">Bootstrapping the term structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-term-structure-with-the-nelson-siegel-model">Estimating the term structure with the Nelson-Siegel model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-that-curve-fit-estimates">Define the function that <font color="green">curve_fit</font> estimates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-r-2">Calculate <span class="math notranslate nohighlight">\(R^{2}\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-spot-rates-with-final-estimates-for-maturities-between-zero-and-thirty-years">Calculate spot rates with final estimates for maturities between zero and thirty years</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nelson-siegel-estimates-function">The <font color="green">nelson_siegel_estimates</font> function</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-the-initial-guesses-and-estimate-the-term-structure">Set the initial guesses and estimate the term structure</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-the-estimates-and-graphing-the-results">Displaying the estimates and graphing the results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-estimate-nelson-and-siegel-model-for-june-30-th-2023"><font color="green">Application: Estimate Nelson and Siegel model for June 30<span class="math notranslate nohighlight">\(^{th}\)</span> 2023</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-svensson-extension">The Svensson extension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-forward-rates">Calculating forward rates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-zero-prices-at-the-respective-dates">Calculate zero prices at the respective dates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-forward-rates">Calculate the forward rates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-forward-rate-for-the-second-and-fourth-quarters-of-2026-using-march-11-th-2026-estimates">Calculate the forward rate for the second and fourth quarters of 2026 using March 11<span class="math notranslate nohighlight">\(^{th}\)</span> 2026 estimates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-calculating-forward-rates-with-nelson-and-siegel-estimates"><font color="green">Application: Calculating Forward Rates with Nelson and Siegel Estimates</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-par-yields-with-nelson-siegel-model">Calculating Par Yields with Nelson-Siegel model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-par-yields-with-nelson-siegel-model-for-the-period-april-1-st-2026-march-31-st-2031">Calculating Par Yields with Nelson-Siegel model for the period April 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2026 - March 31<span class="math notranslate nohighlight">\(^{st}\)</span> 2031</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-forecast-the-cost-of-fixed-and-floating-rate-debt"><font color="green">Exercise: Forecast the cost of fixed and floating rate debt</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-a-deeper-dive-with-gemini"><font color="green">Take a deeper dive with Gemini</font></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Financial Python
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Arbitrage Partners.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
