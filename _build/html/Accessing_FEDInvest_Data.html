@@ -1,0 +1,1167 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Accessing Treasury Bill Prices From Treasury Direct Website &#8212; Basic Concepts of Fixed Income: Nelson-Siegel Model Of Term Structure</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=b47fed4d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/open_new_tab.js?v=9fade34f"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Accessing_FEDInvest_Data';</script>
+    <script src="_static/open_new_tab.js?v=9fade34f"></script>
+    <link rel="canonical" href="https://patrickjhess.github.io/Vol-3-Chap-9/Accessing_FEDInvest_Data.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Estimating The Nelson and Siegel Model" href="Nelson_and_Siegel_Term_Structure_Estimates.html" />
+    <link rel="prev" title="Why the Nelson and Siegel Model" href="Nelson_Siegel.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Basic Concepts of Fixed Income: Nelson-Siegel Model Of Term Structure</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Financial Python
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Interacting%20With%20Jupyter%20Books.html">Working with Jupyter Books</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Basic Concepts of Fixed Income: Chapter Nine</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Chapter_Nine_Highlights.html"><em><strong>The Nelson and Siegel Model Of the Term Structure</strong></em></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Nelson_Siegel.html">Why the Nelson and Siegel Model</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Accessing Treasury Bill Prices From Treasury Direct Website</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Nelson_and_Siegel_Term_Structure_Estimates.html">Estimating The Nelson and Siegel Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Chapter_Nine_Summary.html"><em><strong>Summarizing The Nelson and Siegel Model Of the Term Structure</strong></em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="imported_functions_Nine.html"><em><strong>Functions Imported by Chapter Eight.</strong></em></a></li>
+</ul><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Hub &amp; Other Chapters Of Basic Concepts Of Fixed Income</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Volume-Three-Hub/">Hub For Basic Concepts Of Fixed Income</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-1/">Chapter One: Basic Bond Concepts and the Term Structure of Interest Rates</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-2-Chap-3/">Chapters Two and Three: Accrued Interest and Bond Pay Data</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-4/">Chapters Four: Bootstrapping The Term Structure With Coupon Bonds</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-5/">Chapter Five: Yield To Maturity</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-6/">Chapter Six: Yield To Maturity</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://patrickjhess.github.io/Vol-3-Chap-7/">Chapter Seven: Measuring Interest Risk With Duration</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/PatrickJHess/Vol-3-Chap-9/master?urlpath=tree/Accessing_FEDInvest_Data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/PatrickJHess/Vol-3-Chap-9/blob/master/Accessing_FEDInvest_Data.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/PatrickJHess/Vol-3-Chap-9/issues/new?title=Issue%20on%20page%20%2FAccessing_FEDInvest_Data.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Accessing_FEDInvest_Data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Accessing Treasury Bill Prices From Treasury Direct Website</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-price-data-directly-from-the-fedinvest">Accessing price data directly from the FedInvest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries-modules-and-functions">Importing libraries, modules, and functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-fedinvest-from-the-custom-module">Getting FEDInvest from the custom module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fedinvest"><font color="green">FEDInvest</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-data-from-fedinvest-for-january-17-th-2025">Getting data from FEDInvest for January 17<span class="math notranslate nohighlight">\(^{th}\)</span> 2025</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-the-data">Cleaning up the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-types-of-securities-included-in-the-dataframe">Determining types of securities included in the DataFrame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retain-bills-notes-and-bonds-set-index-convert-rate-to-coupon-drop-and-rename-columns">Retain bills, notes, and bonds, set index,convert ‘RATE’ to coupon, drop and rename columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-access-fedinvest-data-for-june-1-st-2010-and-create-a-dataframe-with-an-index-equal-to-maturity-dates-as-pandas-timestamps"><font color="green">Application: Access FEDInvest data for June 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2010 and create a DataFrame with an index equal to maturity dates as Pandas timestamps.</font></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="accessing-treasury-bill-prices-from-treasury-direct-website">
+<h1>Accessing Treasury Bill Prices From Treasury Direct Website<a class="headerlink" href="#accessing-treasury-bill-prices-from-treasury-direct-website" title="Link to this heading">#</a></h1>
+<section id="accessing-price-data-directly-from-the-fedinvest">
+<h2>Accessing price data directly from the FedInvest<a class="headerlink" href="#accessing-price-data-directly-from-the-fedinvest" title="Link to this heading">#</a></h2>
+<p>Price data for U.S. Treasury securities is available on the FedInvest page of the Treasury Direct website. This data includes the current day’s prices (updated after 1 pm New York time) and daily historical prices dating back to September 2008.</p>
+<p>The current page design is straightforward, making the data easily accessible using Pandas. As shown below, the page features a form to select the desired date for the prices.</p>
+<p>A specialized function, <font color='green'>FEDInvest</font>, is used to retrieve this data. The function takes the requested date as its single argument and returns the data as a Pandas DataFrame. Clicking the accompanying image provides a brief explanation of the website and the function.</p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=YuhiFDyvNb0"><img alt="FEDInvest Video" src="https://img.youtube.com/vi/YuhiFDyvNb0/maxresdefault.jpg" /></a></p>
+</section>
+<section id="importing-libraries-modules-and-functions">
+<h2>Importing libraries, modules, and functions<a class="headerlink" href="#importing-libraries-modules-and-functions" title="Link to this heading">#</a></h2>
+<p>This notebook illustrates how to obtain daily price data for U.S. Treasury Securities. It utilizes a function imported from a custom module. The necessary modules are minimal and primarily consist of those found in the standard Python library, along with IPython and Pandas. IPython is included by default in both Jupyter and Colab environments, and no installation is required.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">date</span><span class="p">,</span><span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModuleType</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-fedinvest-from-the-custom-module">
+<h2>Getting FEDInvest from the custom module<a class="headerlink" href="#getting-fedinvest-from-the-custom-module" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the URL of the Python module to be downloaded from Dropbox.</span>
+<span class="c1"># The &#39;dl=1&#39; parameter in the URL forces a direct download of the file content.</span>
+<span class="n">url</span><span class="o">=</span> <span class="s1">&#39;https://www.dropbox.com/scl/fi/4y5hjxlfphh1ngvbgo77q/</span><span class="se">\</span>
+<span class="s1">module_-basic_concepts_fixed_income.py?rlkey=6oxi7mgka42veaat79hcv8boz&amp;st=87sztshr&amp;dl=1&#39;</span>
+<span class="n">module_name</span><span class="o">=</span><span class="s1">&#39;basic_concepts_fixed_income&#39;</span>
+<span class="c1"># Send an HTTP GET request to the URL and store the server&#39;s response.</span>
+<span class="k">try</span><span class="p">:</span>
+  <span class="n">response</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+  <span class="c1"># Raise an exception for bad status codes (like 404 Not Found)</span>
+  <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+  <span class="n">module</span><span class="o">=</span> <span class="n">ModuleType</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+  <span class="c1">#Code contained in response.text executed</span>
+  <span class="n">exec</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+  <span class="c1"># Module added to sys</span>
+  <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span><span class="o">=</span><span class="n">module</span>
+<span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error: Could not fetch module from URL. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Error: Failed to execute or import the module. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Now that &#39;basic_concepts_fixed_income&#39; exists in the notebook, import the specific functions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">basic_concepts_fixed_income</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">FEDInvest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="fedinvest">
+<h2><font color='green'>FEDInvest</font><a class="headerlink" href="#fedinvest" title="Link to this heading">#</a></h2>
+<p>The function accepts a single argument: the desired date for the prices. Unlike previous chapters, this function uses the <font color='green'>post</font>
+method of the request module instead of the <font color='green'>get</font>
+method.</p>
+<p>The initial webpage contains a form for the day, month, and year of the price data. This information is sent to the page using the <font color='green'>post</font>
+method. We define a dictionary containing the day, month, and year included in the <font color='green'>post</font>
+request. The required data types and names are determined by inspecting the page (using F12).</p>
+<p>The response to this input is a page that contains a table of price data. We use the Pandas <font color='green'>read_html</font>
+function that searches the response text for tables. By using the <font color='green'>match</font>
+parameter, we restrict the returned results to only those tables that contain the value assigned to <font color='green'>match</font>. In this case, only tables that include ‘CUSIP’ are returned, resulting in a single table.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="c1"># URL address of Treasury Direct Select A Date</span>
+  <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://treasurydirect.gov/GA-FI/FedInvest/selectSecurityPriceDate&quot;</span>
+
+ <span class="c1">#  variable names and type identified from inspecting url</span>
+  <span class="n">month</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">price_date</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+  <span class="n">day</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">price_date</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+  <span class="n">year</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">price_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+
+  <span class="c1"># payload passed in request post</span>
+  <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;priceDate.month&#39;</span><span class="p">:</span><span class="n">month</span><span class="p">,</span>
+           <span class="s1">&#39;priceDate.day&#39;</span><span class="p">:</span><span class="n">day</span><span class="p">,</span>
+           <span class="s1">&#39;priceDate.year&#39;</span><span class="p">:</span><span class="n">year</span><span class="p">,</span>
+           <span class="s2">&quot;submit&quot;</span><span class="p">:</span> <span class="s2">&quot;Show Prices&quot;</span><span class="p">}</span>
+
+  <span class="c1"># fires off form and returns prices for date</span>
+  <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+  <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Connection Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="kc">None</span>
+
+  <span class="c1"># reads the html</span>
+  <span class="c1"># Pandas recommends to wrap the response in StingIO to make text file like</span>
+  <span class="n">tables</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">),</span><span class="n">match</span><span class="o">=</span><span class="s1">&#39;CUSIP&#39;</span><span class="p">)</span>
+
+
+  <span class="c1"># from inspection there is a single table</span>
+  <span class="k">return</span> <span class="n">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">price_date</span><span class="p">,</span><span class="n">settlement_date</span>        
+</pre></div>
+</div>
+<p><a class="reference external" href="https://patrickjhess.github.io/Imported-Functions/FEDInvest.html#fedinvest-is-a-helper-function-that-gets-daily-price-data-for-u-s-treasury-securities">The function is available here</a></p>
+</section>
+<section id="getting-data-from-fedinvest-for-january-17-th-2025">
+<h2>Getting data from FEDInvest for January 17<span class="math notranslate nohighlight">\(^{th}\)</span> 2025<a class="headerlink" href="#getting-data-from-fedinvest-for-january-17-th-2025" title="Link to this heading">#</a></h2>
+<p>Chapter Four downloaded bond data from dropbox for settlement on January 21<span class="math notranslate nohighlight">\(^{st}\)</span> 2025. The maturity dates of that data is between January 28, 2025 and January 31, 2030. That dataset had 309 bills, notes, or bonds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set the date for prices</span>
+<span class="n">price_date</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">17</span><span class="p">)</span>
+
+<span class="c1"># fetch the data</span>
+<span class="n">df</span><span class="p">,</span><span class="n">date_stamp</span><span class="p">,</span><span class="n">settlement</span><span class="o">=</span><span class="n">FEDInvest</span><span class="p">(</span><span class="n">price_date</span><span class="p">)</span>
+
+<span class="c1">#display results</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; Requested Date; </span><span class="si">{</span><span class="n">date_stamp</span><span class="si">}</span><span class="s1">; Settlement Date </span><span class="si">{</span><span class="n">settlement</span><span class="si">}</span><span class="s1">&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CUSIP</th>
+      <th>SECURITY TYPE</th>
+      <th>RATE</th>
+      <th>MATURITY DATE</th>
+      <th>CALL DATE</th>
+      <th>BUY</th>
+      <th>SELL</th>
+      <th>END OF DAY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>912797MY0</td>
+      <td>MARKET BASED BILL</td>
+      <td>0.000%</td>
+      <td>01/21/2025</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>99.953111</td>
+      <td>100.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>912797JR9</td>
+      <td>MARKET BASED BILL</td>
+      <td>0.000%</td>
+      <td>01/23/2025</td>
+      <td>NaN</td>
+      <td>0.000000</td>
+      <td>99.929500</td>
+      <td>99.976556</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>912797MZ7</td>
+      <td>MARKET BASED BILL</td>
+      <td>0.000%</td>
+      <td>01/28/2025</td>
+      <td>NaN</td>
+      <td>99.871208</td>
+      <td>99.871056</td>
+      <td>99.918139</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>912797LZ8</td>
+      <td>MARKET BASED BILL</td>
+      <td>0.000%</td>
+      <td>01/30/2025</td>
+      <td>NaN</td>
+      <td>99.847792</td>
+      <td>99.847611</td>
+      <td>99.894500</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>912797NF0</td>
+      <td>MARKET BASED BILL</td>
+      <td>0.000%</td>
+      <td>02/04/2025</td>
+      <td>NaN</td>
+      <td>99.788750</td>
+      <td>99.788500</td>
+      <td>99.835500</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>448</th>
+      <td>91282CJD4</td>
+      <td>MARKET BASED FRN</td>
+      <td>4.502%</td>
+      <td>10/31/2025</td>
+      <td>NaN</td>
+      <td>100.089107</td>
+      <td>100.066017</td>
+      <td>100.071788</td>
+    </tr>
+    <tr>
+      <th>449</th>
+      <td>91282CJU6</td>
+      <td>MARKET BASED FRN</td>
+      <td>4.578%</td>
+      <td>01/31/2026</td>
+      <td>NaN</td>
+      <td>100.163356</td>
+      <td>100.143067</td>
+      <td>100.150673</td>
+    </tr>
+    <tr>
+      <th>450</th>
+      <td>91282CKM2</td>
+      <td>MARKET BASED FRN</td>
+      <td>4.482%</td>
+      <td>04/30/2026</td>
+      <td>NaN</td>
+      <td>100.073564</td>
+      <td>100.048611</td>
+      <td>100.054847</td>
+    </tr>
+    <tr>
+      <th>451</th>
+      <td>91282CLA7</td>
+      <td>MARKET BASED FRN</td>
+      <td>4.514%</td>
+      <td>07/31/2026</td>
+      <td>NaN</td>
+      <td>100.135440</td>
+      <td>100.113131</td>
+      <td>100.113131</td>
+    </tr>
+    <tr>
+      <th>452</th>
+      <td>91282CLT6</td>
+      <td>MARKET BASED FRN</td>
+      <td>4.538%</td>
+      <td>10/31/2026</td>
+      <td>NaN</td>
+      <td>100.205411</td>
+      <td>100.188164</td>
+      <td>100.183854</td>
+    </tr>
+  </tbody>
+</table>
+<p>453 rows × 8 columns</p>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39; Requested Date; 2025-01-17; Settlement Date 2025-01-21&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Chapter Four downloaded bond data from dropbox for settlement on January 21, 2025. The maturity dates of that data is between January 28, 2025 and January 31, 2030. That dataset had 309 bills, notes, or bonds.  This dataset has 452 securities, but some of those are floating rate notes (FRN) or inflation indexed securities (TIPS).</p>
+</section>
+<section id="cleaning-up-the-data">
+<h2>Cleaning up the data<a class="headerlink" href="#cleaning-up-the-data" title="Link to this heading">#</a></h2>
+<section id="determining-types-of-securities-included-in-the-dataframe">
+<h3>Determining types of securities included in the DataFrame<a class="headerlink" href="#determining-types-of-securities-included-in-the-dataframe" title="Link to this heading">#</a></h3>
+<p>We will focus on analyzing bills, notes, and bonds. The initial step is to identify the unique types of instruments within the DataFrame. We will accomplish this by using the Pandas <font color='green'>duplicated</font> method, which indicates whether a row is a duplicate. By setting the subset parameter to ‘SECURITY TYPE’, we target that specific column. We then negate the returned boolean values with the ~ symbol to isolate and return only the first occurrence of each unique security type.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find rows that are unique (return False for duplicated)</span>
+<span class="n">unique_type</span><span class="o">=~</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;SECURITY TYPE&#39;</span><span class="p">])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">unique_type</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CUSIP</th>
+      <th>SECURITY TYPE</th>
+      <th>RATE</th>
+      <th>MATURITY DATE</th>
+      <th>CALL DATE</th>
+      <th>BUY</th>
+      <th>SELL</th>
+      <th>END OF DAY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>912797MY0</td>
+      <td>MARKET BASED BILL</td>
+      <td>0.000%</td>
+      <td>01/21/2025</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>99.953111</td>
+      <td>100.000000</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>9128283V0</td>
+      <td>MARKET BASED NOTE</td>
+      <td>2.500%</td>
+      <td>01/31/2025</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>99.937500</td>
+      <td>99.937500</td>
+    </tr>
+    <tr>
+      <th>292</th>
+      <td>912810ET1</td>
+      <td>MARKET BASED BOND</td>
+      <td>7.625%</td>
+      <td>02/15/2025</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>99.937500</td>
+      <td>99.968750</td>
+    </tr>
+    <tr>
+      <th>394</th>
+      <td>912828ZJ2</td>
+      <td>TIPS</td>
+      <td>0.125%</td>
+      <td>04/15/2025</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>99.781250</td>
+      <td>99.781250</td>
+    </tr>
+    <tr>
+      <th>445</th>
+      <td>91282CGF2</td>
+      <td>MARKET BASED FRN</td>
+      <td>4.533%</td>
+      <td>01/31/2025</td>
+      <td>NaN</td>
+      <td>0.0</td>
+      <td>100.002911</td>
+      <td>100.003051</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="retain-bills-notes-and-bonds-set-index-convert-rate-to-coupon-drop-and-rename-columns">
+<h2>Retain bills, notes, and bonds, set index,convert ‘RATE’ to coupon, drop and rename columns<a class="headerlink" href="#retain-bills-notes-and-bonds-set-index-convert-rate-to-coupon-drop-and-rename-columns" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Retain bills, notes, and bonds</p>
+<ul>
+<li><p><font color='green'>rows_to_keep</font>: This refers to the specific types of securities that will be retained.</p></li>
+<li><p><font color='green'>isin</font>: This parameter return True if the value is present in <font color='green'>rows_to_keep</font></p></li>
+<li><p><font color='green'>copy</font>:  This allows reassigning the modified DataFrame back to its original name.</p></li>
+</ul>
+</li>
+<li><p>Make index Pandas timestamp of ‘MATURITY DATE’ and sort.</p>
+<ul>
+<li><p><font color='green'>set_index</font>: makes the ‘MATURITY DATE’ the index of the DataFrame</p></li>
+<li><p><font color='green'>pd.to_dateteime</font>: convert the index to Pandas datetime.</p></li>
+<li><p><font color='green'>sort_index</font>: sorts the DataFrame by ascending maturity date.</p></li>
+</ul>
+</li>
+<li><p>Convert rate to coupon payment for one hundred par value</p>
+<ul>
+<li><p><font color='green'>str.replace</font>: replaces every element in the series.</p></li>
+<li><p><font color='green'>as.type</font>: converts every element in the string into a floating point number</p></li>
+</ul>
+</li>
+<li><p>Drop columns and change column names</p>
+<ul>
+<li><p><font color='green'>drop</font>: method drops ‘CUSIP’ and ‘CALL DATE’ columns.</p></li>
+<li><p><font color='green'>rename</font>: method changes column names.</p></li>
+<li><p><font color='green'>change_column_names</font>: a dictionary that maps the old names as keys to the new names the values.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the securities we want to keep</span>
+<span class="n">rows_to_keep</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MARKET BASED BILL&#39;</span><span class="p">,</span><span class="s1">&#39;MARKET BASED NOTE&#39;</span><span class="p">,</span><span class="s1">&#39;MARKET BASED BOND&#39;</span><span class="p">]</span>
+
+<span class="c1"># use isin to generate a seroes of True/False keep True and reassigne the DataFrame</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;SECURITY TYPE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">rows_to_keep</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># make &#39;MATURITY DATE&#39; column index, convert to timestamp, and sort chronological</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;MATURITY DATE&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># replace &#39;%&#39; with nothing and cast results as floating point</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RATE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># define the columnes to be dropped</span>
+<span class="n">drop_columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CUSIP&#39;</span><span class="p">,</span><span class="s1">&#39;CALL DATE&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_columns</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># define the dictionary that maps new names (values) to old (keys)</span>
+<span class="n">change_column_names</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;RATE&#39;</span><span class="p">:</span><span class="s1">&#39;Coupon&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;BUY&#39;</span><span class="p">:</span><span class="s1">&#39;Price Ask&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;SELL&#39;</span><span class="p">:</span><span class="s1">&#39;Price Bid&#39;</span><span class="p">}</span>
+<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">change_column_names</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SECURITY TYPE</th>
+      <th>Coupon</th>
+      <th>Price Ask</th>
+      <th>Price Bid</th>
+      <th>END OF DAY</th>
+    </tr>
+    <tr>
+      <th>MATURITY DATE</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2025-01-21</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>0.000000</td>
+      <td>99.953111</td>
+      <td>100.000000</td>
+    </tr>
+    <tr>
+      <th>2025-01-23</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>0.000000</td>
+      <td>99.929500</td>
+      <td>99.976556</td>
+    </tr>
+    <tr>
+      <th>2025-01-28</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>99.871208</td>
+      <td>99.871056</td>
+      <td>99.918139</td>
+    </tr>
+    <tr>
+      <th>2025-01-30</th>
+      <td>MARKET BASED BILL</td>
+      <td>0.000</td>
+      <td>99.847792</td>
+      <td>99.847611</td>
+      <td>99.894500</td>
+    </tr>
+    <tr>
+      <th>2025-01-31</th>
+      <td>MARKET BASED NOTE</td>
+      <td>4.125</td>
+      <td>0.000000</td>
+      <td>100.000000</td>
+      <td>100.000000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2053-11-15</th>
+      <td>MARKET BASED BOND</td>
+      <td>4.750</td>
+      <td>98.312500</td>
+      <td>98.281250</td>
+      <td>98.250000</td>
+    </tr>
+    <tr>
+      <th>2054-02-15</th>
+      <td>MARKET BASED BOND</td>
+      <td>4.250</td>
+      <td>90.578125</td>
+      <td>90.562500</td>
+      <td>90.531250</td>
+    </tr>
+    <tr>
+      <th>2054-05-15</th>
+      <td>MARKET BASED BOND</td>
+      <td>4.625</td>
+      <td>96.468750</td>
+      <td>96.437500</td>
+      <td>96.437500</td>
+    </tr>
+    <tr>
+      <th>2054-08-15</th>
+      <td>MARKET BASED BOND</td>
+      <td>4.250</td>
+      <td>90.656250</td>
+      <td>90.625000</td>
+      <td>90.593750</td>
+    </tr>
+    <tr>
+      <th>2054-11-15</th>
+      <td>MARKET BASED BOND</td>
+      <td>4.500</td>
+      <td>94.640625</td>
+      <td>94.625000</td>
+      <td>94.593750</td>
+    </tr>
+  </tbody>
+</table>
+<p>394 rows × 5 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="application-access-fedinvest-data-for-june-1-st-2010-and-create-a-dataframe-with-an-index-equal-to-maturity-dates-as-pandas-timestamps">
+<h2><font color='green'>Application: Access FEDInvest data for June 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2010 and create a DataFrame with an index equal to maturity dates as Pandas timestamps.</font><a class="headerlink" href="#application-access-fedinvest-data-for-june-1-st-2010-and-create-a-dataframe-with-an-index-equal-to-maturity-dates-as-pandas-timestamps" title="Link to this heading">#</a></h2>
+<p>see <a class="reference external" href="https://colab.research.google.com/drive/1mVPICSNHgoozOJPi6r1IMd9_V2DWvlBM#scrollTo=kfPak5yXNMEq&amp;amp;uniqifier=1">Chapter Nine Hints: Access FEDInvest data for June 1 2010 and create a DataFrame</a>, and check the <a class="reference external" href="https://colab.research.google.com/drive/1MricvoBwjhLxj-oQzKGhnQ0TFlWPl46x#scrollTo=u481cR7sELob">expected results here</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "patrickjhess/Vol-3-Chap-9",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Nelson_Siegel.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Why the Nelson and Siegel Model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Nelson_and_Siegel_Term_Structure_Estimates.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Estimating The Nelson and Siegel Model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-price-data-directly-from-the-fedinvest">Accessing price data directly from the FedInvest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries-modules-and-functions">Importing libraries, modules, and functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-fedinvest-from-the-custom-module">Getting FEDInvest from the custom module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fedinvest"><font color="green">FEDInvest</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-data-from-fedinvest-for-january-17-th-2025">Getting data from FEDInvest for January 17<span class="math notranslate nohighlight">\(^{th}\)</span> 2025</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-up-the-data">Cleaning up the data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-types-of-securities-included-in-the-dataframe">Determining types of securities included in the DataFrame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retain-bills-notes-and-bonds-set-index-convert-rate-to-coupon-drop-and-rename-columns">Retain bills, notes, and bonds, set index,convert ‘RATE’ to coupon, drop and rename columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-access-fedinvest-data-for-june-1-st-2010-and-create-a-dataframe-with-an-index-equal-to-maturity-dates-as-pandas-timestamps"><font color="green">Application: Access FEDInvest data for June 1<span class="math notranslate nohighlight">\(^{st}\)</span> 2010 and create a DataFrame with an index equal to maturity dates as Pandas timestamps.</font></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Financial Python
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Arbitrage Partners.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

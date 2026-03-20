@@ -1,0 +1,3 @@
+# ***Summarizing The Nelson and Siegel Model Of the Term Structure***
+
+This chapter focused on the Nelson-Siegel term structure model, providing an introduction, analysis, and estimation of the model. This model allows for the calculation of forward rates and par yields for any given date. A custom module was enhanced with the addition of the FEDInvest function, that retrieves data from the TreasuryDirect website's FEDInvest page. The exercises in the chapter require applying this model to forecast the cost of fixed and floating rate debt, using forward rates for the latter and par yields for the former

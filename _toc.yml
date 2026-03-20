@@ -1,0 +1,36 @@
+
+# _toc.yml
+format: jb-book
+root: intro
+parts:
+  - caption: Getting Started
+    chapters:
+    - file: Interacting With Jupyter Books
+
+  - caption: "Basic Concepts of Fixed Income: Chapter Nine"
+    chapters:
+    - file: Chapter_Nine_Highlights
+      sections:
+      - file: Nelson_Siegel
+      - file: Accessing_FEDInvest_Data
+      - file: Nelson_and_Siegel_Term_Structure_Estimates
+      - file: Chapter_Nine_Summary
+      - file: imported_functions_Nine
+
+  - caption: Hub & Other Chapters Of Basic Concepts Of Fixed Income
+    chapters:
+    - url: https://patrickjhess.github.io/Volume-Three-Hub/
+      title: "Hub For Basic Concepts Of Fixed Income"
+    - url: https://patrickjhess.github.io/Vol-3-Chap-1/
+      title: "Chapter One: Basic Bond Concepts and the Term Structure of Interest Rates"
+    - url: https://patrickjhess.github.io/Vol-3-Chap-2-Chap-3/
+      title: "Chapters Two and Three: Accrued Interest and Bond Pay Data"
+    - url: https://patrickjhess.github.io/Vol-3-Chap-4/
+      title: "Chapters Four: Bootstrapping The Term Structure With Coupon Bonds" 
+    - url: https://patrickjhess.github.io/Vol-3-Chap-5/
+      title: "Chapter Five: Yield To Maturity"
+    - url: https://patrickjhess.github.io/Vol-3-Chap-6/
+      title: "Chapter Six: Yield To Maturity"
+    - url: https://patrickjhess.github.io/Vol-3-Chap-7/
+      title: "Chapter Seven: Measuring Interest Risk With Duration"
+ 
